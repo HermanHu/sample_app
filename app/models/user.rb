@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   
   #用于反悔制定字符串的哈希摘要
   def User.digest(string)
-    cost = ActiveModle::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
-    BCrypt::Password.create(string,cost:cost)                                              
+    BCrypt::Password.create(string,cost: cost)                                              
   end
 end

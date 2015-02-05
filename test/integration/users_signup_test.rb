@@ -10,6 +10,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                            password_confirmation:"456"}
     end
     assert_template 'users/new'
+   
+    
   end
   
   test "valid signup information" do
@@ -24,5 +26,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                            password_confirmation:password}
     end
     assert_template 'users/show'
+     assert is_logged_in?
   end
 end
