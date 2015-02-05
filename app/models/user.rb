@@ -8,5 +8,11 @@ class User < ActiveRecord::Base
   
   has_secure_password
   validates :password,length:{minimum:6}
-
+  
+  #用于反悔制定字符串的哈希摘要
+  def User.digest(string)
+    cost = ActiveModle::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string,cost:cost)                                              
+  end
 end
