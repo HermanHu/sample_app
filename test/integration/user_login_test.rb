@@ -46,9 +46,25 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     delete logout_path
     assert_not is_logged_in?
     assert_redirected_to root_path
+    #模拟用户在另一个浏览器登出
+    delete logout_path
     follow_redirect!
     assert_template "static_pages/home"
-    assert_select "a[href=?",login_path,count:2
+    assert_select "a[href=?]",login_path,count:1
     
+  end
+  
+  test "authenticated? should renturn false if a user with nil digets" do
+    assert_not @user.authenticated? ''
+  end
+  
+  test "login with rememberme" do
+    log_in_as(@user,remember_me:'1')
+    assert_not_nil cookies['remember_token']
+  end
+  
+  test "login without rememberme" do
+    log_in_as(@user,remember_me:'0')
+    assert_nil cookies['remember_token']
   end
 end
