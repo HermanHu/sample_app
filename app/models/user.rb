@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
             uniqueness: {case_sensitive: false}
   
   has_secure_password
-  validates :password,length:{minimum:6}
+  validates :password,length:{minimum:6},allow_blank:true
   
   #用于反悔制定字符串的哈希摘要
   def User.digest(string)
