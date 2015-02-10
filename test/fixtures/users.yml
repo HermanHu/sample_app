@@ -3,4 +3,22 @@ Herman:
   name: Herman Hu
   email: hermanhu@gmail.com
   password_digest: <%= User.digest('foobar') %>
+  admin: true
+  
+archer:
+  name: String Archer
+  email: archer@gmial.com
+  password_digest: <%= User.digest('foobar') %>
+  
+lana:
+  name: Lana kene
+  email: hand@gmail.com
+  password_digest: <%= User.digest('foobar')%>
+  
+<% 30.times do |n| %>
+user_<%= n%>:
+  name: <%= "user_#{n}" %>  #diffrenet from toturial
+  email: <%= "user_#{n}@gmail.com" %>
+  password_digest: <%= User.digest('foobar') %>
+<% end%>
 

@@ -42,4 +42,20 @@ module SessionsHelper
     cookies.permanent[:remember_token]=user.remember_token
     
   end
+  
+  #如果指定用户是当前用户，返回true
+  def current_user?(user)
+    user==current_user
+  end
+  
+  #重定向到存储的地址或默认地址
+  def redirect_back_or(default)
+    redirect_to(session[:foward_url]||default)
+    session.delete(:foward_url)
+  end
+  
+  #存储重定向将要去的地址
+  def store_location
+    session[:foward_url]=request.url if request.get?
+  end
 end
