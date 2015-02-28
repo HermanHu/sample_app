@@ -55,7 +55,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   end
   
   test "authenticated? should renturn false if a user with nil digets" do
-    assert_not @user.authenticated? ''
+    assert_not @user.authenticated?(:remember,'')
   end
   
   test "login with rememberme" do
