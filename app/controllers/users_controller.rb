@@ -15,6 +15,7 @@ class UsersController < ApplicationController
   def show
 
     @user=User.find(params[:id])
+    @microposts=@user.microposts.paginate(page: params[:page])
   end
   
   def create
@@ -49,14 +50,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  #验证是否登录，并跳转至登录页面
-  def logged_in_user
-    unless logged_in?
-      store_location 
-      flash[:danger]="Please log in."
-      redirect_to login_url
-    end
-  end
+  
   
   #验证当前登录用户是否编辑用户
   def correct_user

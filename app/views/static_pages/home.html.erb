@@ -1,4 +1,17 @@
 
-<h1>Sample App</h1>
-<p>This is a test paege.</p>
-<%=link_to 'Sing up now!',signup_path,class:"btn btn-lg btn-primary"%>
+<% if logged_in? %>
+	<div class="row">
+		<%= render 'shared/aside' %>
+		<div class="col-md-8">
+			<h3>Micropost Feed</h3>
+			<%= render 'shared/feed' %>
+		</div>
+	</div>
+<% else %>
+	<div class="center jumbotron">
+		<h1>Welcome to my site</h1>
+
+		<p>This is a test paege.</p>
+		<%=link_to 'Sing up now!',signup_path,class:"btn btn-lg btn-primary"%>
+	</div>
+<% end %>

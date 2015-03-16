@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+orange:
+  content: "I just ate an orange."
+  created_at: <%= 10.minutes.ago %>
+  user: Herman
+
+tau_minifesto:
+  content: "Check out the site"
+  created_at: <%= 3.years.ago %>
+  user: Herman
+
+most_recent:
+  content: "A test micropost."
+  created_at: <%= Time.zone.now %>
+  user: Herman
+
+ran:
+  content: "I just ate an orange."
+  created_at: <%= 10.minutes.ago %>
+  user: archer
+
+tau:
+  content: "Check out the site"
+  created_at: <%= 3.years.ago %>
+  user: archer
+
+most:
+  content: "A test micropost."
+  created_at: <%= Time.zone.now %>
+  user: lana
+
+ <% 30.times do |n| %>
+micropost_<%= n%>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: Herman
+<% end%>
+
