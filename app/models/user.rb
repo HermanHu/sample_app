@@ -1,5 +1,13 @@
 class User < ActiveRecord::Base
   has_many :microposts,dependent: :destroy
+  has_many :active_relationships,class_name: "Relationship",
+                                 foreign_key:"follower_id",
+                                 dependent:  :destroy
+  has_many :passive_relationships,class_name: "Relationship",
+                                 foreign_key:"followed_id",
+                                 dependent:  :destroy                              
+  has_many :following,through: :active_relationships, source: :followed     
+  has_many :followers,through: :passive_relationships,source: :follower                            
   attr_accessor :remember_token,:activation_token,:reset_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -13,7 +21,9 @@ class User < ActiveRecord::Base
   validates :password,length:{minimum:6},allow_blank:true
   
   def feed
-    Micropost.where("user_id=?",id)
+    following_ids="select followed_id from relationships
+                   where follower_id= :user_id"
+    Micropost.where("user_id in (#{following_ids}) or user_id= :user_id",user_id:id)
   end
   #用于反悔制定字符串的哈希摘要
   def User.digest(string)
@@ -65,6 +75,15 @@ class User < ActiveRecord::Base
     reset_send_at < 2.hours.ago
   end
 
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
+  def following?(other_user)
+    following.include?(other_user)
+  end
   private
     #把电子邮件地址转为小写
     def downcase_email

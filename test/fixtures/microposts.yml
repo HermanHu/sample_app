@@ -30,6 +30,11 @@ most:
   created_at: <%= Time.zone.now %>
   user: lana
 
+mostn:
+  content: "A test micropost by zana."
+  created_at: <%= 15.minutes.ago %>
+  user: zana
+
  <% 30.times do |n| %>
 micropost_<%= n%>:
   content: <%= Faker::Lorem.sentence(5) %>
